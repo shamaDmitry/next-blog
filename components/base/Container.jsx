@@ -2,9 +2,9 @@ import React from 'react';
 
 const Container = ({ children }) => {
   return (
-    <div className="container max-w-screen-lg py-3">
+    <section className="container flex-1 max-w-screen-lg py-3">
       {children}
-    </div>
+    </section>
   );
 }
 

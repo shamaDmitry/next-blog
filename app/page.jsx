@@ -1,26 +1,20 @@
-"use client";
+import { headers, cookies } from "next/headers";
+
 import Container from "@/components/base/Container";
 import Title from "@/components/base/Title";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 
-// async function getPosts() {
-//   const res = await fetch(`/api/posts`)
-//   return res.json()
-// }
+async function getPosts(host) {
+  const res = await fetch(`http://${host}/api/posts`);
+  return res.json()
+}
 
-const Home = () => {
-  // const data = await getPosts();
-  const [posts, setPosts] = useState([]);
+const Home = async () => {
+  const host = headers().get("host");
+  const cookieStore = cookies()
 
-  useEffect(() => {
-    fetch('/api/posts')
-      .then(res => res.json())
-      .then(res => {
-        setPosts(res.documents)
-      })
-    return () => {
-    };
-  }, []);
+  const data = await getPosts(host);
+  const { documents } = data;
 
   return (
     <Container>
@@ -28,15 +22,23 @@ const Home = () => {
         Our Blog
       </Title>
 
-      <div>
-        {posts.map(post => {
+      <div className="flex flex-col">
+        <pre className="mb-2">
+          {JSON.stringify(host, null, 2)}
+        </pre>
+        <pre className="mb-2">
+          {JSON.stringify(cookieStore, null, 2)}
+        </pre>
+
+        {documents.map(post => {
           return (
-            <div
+            <Link
+              href={`/post/${post.$id}`}
               key={post.$id}
               className="p-4 mb-4 border"
             >
               {post.title}
-            </div>
+            </Link>
           )
         })}
       </div>
