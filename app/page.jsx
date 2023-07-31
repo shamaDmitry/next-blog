@@ -1,35 +1,26 @@
-import { headers, cookies } from "next/headers";
+import { headers } from "next/headers";
 
-import Container from "@/components/base/Container";
 import Title from "@/components/base/Title";
 import Link from "next/link";
 
 async function getPosts(host) {
   const res = await fetch(`http://${host}/api/posts`);
-  return res.json()
+  return res.json();
 }
 
 const Home = async () => {
   const host = headers().get("host");
-  const cookieStore = cookies()
-
   const data = await getPosts(host);
-  const { documents } = data;
+  const { documents, totalDocs } = data;
+  const pages = totalDocs / 5;
 
   return (
-    <Container>
+    <>
       <Title>
-        Our Blog
+        part 1
       </Title>
 
       <div className="flex flex-col">
-        <pre className="mb-2">
-          {JSON.stringify(host, null, 2)}
-        </pre>
-        <pre className="mb-2">
-          {JSON.stringify(cookieStore, null, 2)}
-        </pre>
-
         {documents.map(post => {
           return (
             <Link
@@ -37,12 +28,26 @@ const Home = async () => {
               key={post.$id}
               className="p-4 mb-4 border"
             >
-              {post.title}
+              <div className="text-lg font-semibold leading-snug tracking-tight">
+                {post.title}
+              </div>
             </Link>
           )
         })}
       </div>
-    </Container>
+      {/* {
+        Array.from(Array(pages).keys()).map(page => {
+          console.log('sasaasassa', page);
+          return (
+            <Link
+              href={`/api/posts?page=${page + 1}`}
+            >
+              {page + 1}
+            </Link>
+          )
+        })
+      } */}
+    </>
   )
 }
 

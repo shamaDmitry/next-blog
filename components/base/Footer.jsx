@@ -6,7 +6,7 @@ const Footer = () => {
   const [date,] = useState(new Date());
 
   return (
-    <footer className="py-4 mt-auto text-sm border-t text-slate-900 border-t-gray-200">
+    <footer className="p-4 mt-auto text-sm border-t text-slate-900 border-t-gray-200">
       <div className="container">
         &copy; {date.getFullYear()}
       </div>

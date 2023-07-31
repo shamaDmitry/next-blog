@@ -10,7 +10,7 @@ async function getPost(host, id) {
   return res.json()
 }
 
-const Page = async ({ params, searchParams }) => {
+const Page = async ({ params }) => {
   const host = headers().get("host");
   const post = await getPost(host, params.id)
 
