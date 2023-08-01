@@ -32,8 +32,6 @@ export async function GET(req) {
     //   next: nextPage
     // }))
 
-
-
     if (currentPage.documents.length) {
       return new NextResponse(JSON.stringify({
         totalDocs: currentPage.total,

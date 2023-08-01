@@ -6,11 +6,11 @@ import Link from "next/link";
 
 const links = [
   {
-    title: "part 1",
+    title: "Blog name",
     href: "/",
   },
   {
-    title: "part 2",
+    title: "another Blog name",
     href: "/part2",
   },
 ]
@@ -20,7 +20,13 @@ const Header = () => {
 
   return (
     <header className="px-4 py-6 font-serif text-2xl font-bold text-center">
-      <Link href="/">BLOG</Link>
+      <Link
+        href="/"
+        className="inline-flex flex-col p-4 mb-5 border"
+      >
+        <span className="font-sans text-base font-medium">AI-genereted</span>
+        <span>BLOG</span>
+      </Link>
 
       <nav className={classNames("flex justify-center p-2 font-semibold lowercase gap-x-4")}>
 

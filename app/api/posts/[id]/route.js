@@ -16,9 +16,9 @@ export async function GET(req, { params }) {
 
     if (data.length) {
       return new NextResponse(JSON.stringify(...data), { status: 200 });
-    } else {
-      return new NextResponse(JSON.stringify({ data: "Not found" }), { status: 404 });
     }
+
+    return new NextResponse(JSON.stringify({ data: null }), { status: 404 });
   } catch (e) {
     return new NextResponse("Failed to fetch all post", { status: 500 });
   }

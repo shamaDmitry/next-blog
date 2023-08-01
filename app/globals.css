@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.blog-body>p:not(:last-child) {
+  margin-bottom: 24px;
+}
