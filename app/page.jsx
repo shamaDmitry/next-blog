@@ -38,7 +38,7 @@ const Home = async ({ searchParams }) => {
       </pre> */}
 
       <h2 className="mb-4 text-lg font-medium">
-        Description of the blog's part
+        Description of the blog&apos;s part
       </h2>
 
       <div className="flex flex-col">
