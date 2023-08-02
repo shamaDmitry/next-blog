@@ -23,14 +23,20 @@ const Page = async ({ params }) => {
       </Link>
 
       <div className="px-4 py-2 mb-8 border">
-        AI Prompt
+        <div className="pb-2 mb-4 font-bold border-b">
+          AI Prompt
+        </div>
+
+        <div>
+          {post.prompt}
+        </div>
       </div>
 
       <Title>
         {post.title}
       </Title>
 
-      <div className="mb-8 blog-body" dangerouslySetInnerHTML={{ __html: post.body }} />
+      <div className="p-4 mb-8 border blog-body" dangerouslySetInnerHTML={{ __html: post.body || "" }} />
 
       <Link href="/" className="inline-flex items-center mb-5 font-bold gap-x-2">
         <ArrowLeftCircleIcon className="w-8 text-gray-500" />
@@ -40,7 +46,7 @@ const Page = async ({ params }) => {
       <p className="text-sm text-gray-500">
         <span>created: </span>
         <span className="font-bold">
-          {dayjs(post.$createdAt).format("DD/MM/YYYY H:s")}
+          {dayjs(post.$createdAt).format("DD/MM/YYYY H:m:s")}
         </span>
       </p>
     </Container>

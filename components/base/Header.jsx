@@ -5,14 +5,14 @@ import classNames from "classnames";
 import Link from "next/link";
 
 const links = [
-  {
-    title: "Blog name",
-    href: "/",
-  },
-  {
-    title: "another Blog name",
-    href: "/part2",
-  },
+  // {
+  //   title: "Blog name",
+  //   href: "/",
+  // },
+  // {
+  //   title: "another Blog name",
+  //   href: "/part2",
+  // },
 ]
 
 const Header = () => {

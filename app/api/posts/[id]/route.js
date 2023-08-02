@@ -1,12 +1,13 @@
 import { databases } from "@/appwrite";
+import { isProd } from "@/consts";
 import { Query } from "appwrite";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
   try {
     const dataRes = await databases.listDocuments(
-      process.env.NEXT_PUBLIC_DATABASE_ID,
-      process.env.NEXT_PUBLIC_DATA_COLLECTION_ID,
+      isProd ? process.env.DATABASE_PROD_ID : process.env.NEXT_PUBLIC_DATABASE_ID,
+      isProd ? process.env.DATA_PROD_COLLECTION_ID : process.env.NEXT_PUBLIC_DATA_COLLECTION_ID,
       [
         Query.equal('$id', params.id),
       ]

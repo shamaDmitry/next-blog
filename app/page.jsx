@@ -1,10 +1,11 @@
-import { databases, storage } from "@/appwrite";
+import { databases } from "@/appwrite";
 import { Query } from "appwrite";
 
 import Title from "@/components/base/Title";
 import Link from "next/link";
 import classNames from "classnames";
 import dayjs from "dayjs";
+import { isProd } from "@/consts";
 
 const Home = async ({ searchParams }) => {
   const page = Number(searchParams.page) || 0
@@ -12,18 +13,14 @@ const Home = async ({ searchParams }) => {
   const offset = pageLimit * page;
 
   const data = await databases.listDocuments(
-    process.env.NEXT_PUBLIC_DATABASE_ID,
-    process.env.NEXT_PUBLIC_DATA_COLLECTION_ID,
+    isProd ? process.env.DATABASE_PROD_ID : process.env.NEXT_PUBLIC_DATABASE_ID,
+    isProd ? process.env.DATA_PROD_COLLECTION_ID : process.env.NEXT_PUBLIC_DATA_COLLECTION_ID,
     [
       Query.limit(pageLimit),
       Query.offset(offset),
       Query.orderDesc("$createdAt")
     ]
   )
-
-  // const images = await storage.listFiles(
-  //   '64c902d4b6bd4ef0cfe4'
-  // );
 
   const pages = data.total / pageLimit;
 
@@ -33,15 +30,15 @@ const Home = async ({ searchParams }) => {
         Latest posts
       </Title>
 
-      {/* <pre>
-        {JSON.stringify(images, null, 2)}
-      </pre> */}
-
       <h2 className="mb-4 text-lg font-medium">
         Description of the blog&apos;s part
       </h2>
 
       <div className="flex flex-col">
+        {!data.documents.length && <p className="mb-2 font-medium capitalize">
+          nothing is here
+        </p>}
+
         {data.documents.map(post => {
           return (
             <Link
@@ -56,7 +53,7 @@ const Home = async ({ searchParams }) => {
               </div>
 
               <time className="flex flex-col pt-2 text-xs">
-                {dayjs(post.$createdAt).format("DD/MM/YYYY H:s")}
+                {dayjs(post.$createdAt).format("DD/MM/YYYY H:m:s")}
               </time>
             </Link>
           )
