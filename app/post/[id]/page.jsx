@@ -11,12 +11,23 @@ async function getPost(host, id) {
   return res.json()
 }
 
+export async function generateMetadata({ params, searchParams }, parent) {
+  const id = params.id
+  const host = headers().get("host");
+
+  const post = await fetch(`http://${host}/api/posts/${id}`).then((res) => res.json())
+
+  return {
+    title: post.title,
+  }
+}
+
 const Page = async ({ params }) => {
   const host = headers().get("host");
   const post = await getPost(host, params.id)
 
   return (
-    <Container>
+    <>
       <Link href="/" className="inline-flex items-center mb-5 font-bold gap-x-2">
         <ArrowLeftCircleIcon className="w-8 text-gray-500" />
         Back
@@ -46,10 +57,10 @@ const Page = async ({ params }) => {
       <p className="text-sm text-gray-500">
         <span>created: </span>
         <span className="font-bold">
-          {dayjs(post.$createdAt).format("DD/MM/YYYY H:m:s")}
+          {dayjs(post.$createdAt).format("DD/MM/YYYY H:m:ss")}
         </span>
       </p>
-    </Container>
+    </>
   );
 }
 
